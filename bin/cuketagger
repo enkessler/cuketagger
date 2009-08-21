@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 
-require "rubygems"
 require "cucumber"
 require "cucumber/feature_file"
 require "cucumber/formatter/pretty"
@@ -16,6 +16,7 @@ class Tagger
     abort(USAGE) if args.empty?
     opts = {:dry_run => true, :source => true}
 
+    # TODO: use optparse?
     args.each do |arg|
       case arg
       when /^(.+?\.feature)(:\d+)?$/
@@ -26,8 +27,10 @@ class Tagger
         opts[:autoformat] = "."
         opts[:source] = false
         Term::ANSIColor.coloring = false
+      when /^(-h|--help)$/
+        abort(USAGE)
       else
-        raise ArgumentError, "unknown argument: #{arg.inspect}"
+        abort(USAGE)
       end
     end
 
