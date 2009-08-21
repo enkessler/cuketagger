@@ -13,7 +13,7 @@ class Tagger
   end
 
   def execute(args)
-    abort(USAGE) if args.empty?
+    abort(USAGE) if args.empty? || args.shift =~ /^(-h|--help)$/
     opts = {:dry_run => true, :source => true}
 
     # TODO: use optparse?
