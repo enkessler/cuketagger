@@ -78,7 +78,6 @@ class Tagger
 
 end
 
-
 class TagVisitor < Cucumber::Formatter::Pretty
 
   def initialize(tagger, step_mother, io, options)
@@ -88,7 +87,6 @@ class TagVisitor < Cucumber::Formatter::Pretty
 
 
   def visit_feature(feature)
-    @in = :feature
     @current_feature = feature
     super
   end
@@ -106,7 +104,7 @@ class TagVisitor < Cucumber::Formatter::Pretty
   private
 
   def record_tag_occurrences(*args)
-    # override to avoid error if options[:include_tags] is not Enumerable
+    # override to avoid error if options[:include_tags] is nil
   end
 
 end
