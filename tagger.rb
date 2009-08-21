@@ -94,6 +94,7 @@ class TagVisitor < Cucumber::Formatter::Pretty
   def visit_feature_element(element)
     @current_element = element
     super
+    @current_element = nil
   end
 
   def visit_tags(tags)
