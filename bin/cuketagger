@@ -4,6 +4,7 @@
 require "cucumber"
 require "cucumber/feature_file"
 require "cucumber/formatter/pretty"
+require "set"
 
 class Tagger
   USAGE = "#{File.basename $0} [-f|--force] [add|remove]:TAG [FILE[:LINE]]+"
@@ -13,7 +14,7 @@ class Tagger
   end
 
   def execute(args)
-    abort(USAGE) if args.empty? || args.shift =~ /^(-h|--help)$/
+    abort(USAGE) if args.empty? || args.first =~ /^(-h|--help)$/
     opts = {:dry_run => true, :source => true}
 
     # TODO: use optparse?
@@ -22,13 +23,11 @@ class Tagger
       when /^(.+?\.feature)(:\d+)?$/
         add_feature($1, $2)
       when /^(add|remove):(.+?)$/
-        alterations << [$1.to_sym, $2]
+        alterations << added = [$1.to_sym, $2]
       when /^(-f|--force)$/
         opts[:autoformat] = "."
         opts[:source] = false
         Term::ANSIColor.coloring = false
-      when /^(-h|--help)$/
-        abort(USAGE)
       else
         abort(USAGE)
       end
@@ -51,15 +50,22 @@ class Tagger
   end
 
   def should_alter?(feature, element)
-    line = element ? element.line : 0
-    features_to_change.include? [feature.file, line]
+    line    = element ? element.line : 0
+    success = features_to_change.include? [feature.file, line]
+
+    if $DEBUG
+      p :feature_class => feature.class, :element_class => element.class, :line => line, :success => success
+      p :features_to_change => features_to_change
+    end
+
+    success
   end
 
   private
 
   def add_feature(path, line)
     ff = Cucumber::FeatureFile.new(path).parse(step_mother, {})
-    features_to_change << [path, line.to_s[1,1].to_i]
+    features_to_change << [path, line.to_s[1,line.length].to_i]
     features.add_feature ff
   end
 
@@ -72,11 +78,11 @@ class Tagger
   end
 
   def alterations
-    @alterations ||= []
+    @alterations ||= Set.new
   end
 
   def features_to_change
-    @features_to_change ||= []
+    @features_to_change ||= Set.new
   end
 
 end
