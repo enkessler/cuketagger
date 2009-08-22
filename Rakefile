@@ -6,7 +6,7 @@ require "rake/gempackagetask"
 CLEAN.include %w[pkg]
 
 GEM_NAME = "cuketagger"
-GEM_VERSION = "0.2"
+GEM_VERSION = "0.3"
 
 spec = Gem::Specification.new do |s|
   s.name             = GEM_NAME
