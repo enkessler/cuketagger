@@ -17,13 +17,12 @@ class Tagger
     abort(USAGE) if args.empty? || args.first =~ /^(-h|--help)$/
     opts = {:dry_run => true, :source => true}
 
-    # TODO: use optparse?
     args.each do |arg|
       case arg
       when /^(.+?\.feature)(:\d+)?$/
         add_feature($1, $2)
       when /^(add|remove):(.+?)$/
-        alterations << added = [$1.to_sym, $2]
+        alterations << [$1.to_sym, $2]
       when /^(-f|--force)$/
         opts[:autoformat] = "."
         opts[:source] = false
@@ -119,6 +118,4 @@ class TagVisitor < Cucumber::Formatter::Pretty
 
 end
 
-if __FILE__ == $0
-  Tagger.execute(ARGV)
-end
+Tagger.execute(ARGV)
