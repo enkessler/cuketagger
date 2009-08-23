@@ -2,16 +2,16 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cuketagger}
-  s.version = "0.3"
+  s.version = "0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jari", "Bakken"]
-  s.date = %q{2009-08-22}
+  s.date = %q{2009-08-23}
   s.default_executable = %q{cuketagger}
   s.description = %q{batch tagging of cucumber features and scenarios}
   s.email = %q{jari.bakken@gmail.com}
   s.executables = ["cuketagger"]
-  s.files = ["bin/cuketagger"]
+  s.files = ["Rakefile", "README.markdown", "lib/cuketagger", "lib/cuketagger/tag_visitor.rb", "lib/cuketagger/tagger.rb", "lib/cuketagger/version.rb", "lib/cuketagger.rb", "bin/cuketagger"]
   s.homepage = %q{http://cukes.info}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}

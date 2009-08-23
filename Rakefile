@@ -2,11 +2,11 @@
 
 require "rake/clean"
 require "rake/gempackagetask"
-
+require "lib/cuketagger/version"
 CLEAN.include %w[pkg]
 
 GEM_NAME = "cuketagger"
-GEM_VERSION = "0.3"
+GEM_VERSION = CukeTagger::Version
 
 spec = Gem::Specification.new do |s|
   s.name             = GEM_NAME
@@ -17,6 +17,7 @@ spec = Gem::Specification.new do |s|
   s.authors          = %w[Jari Bakken]
   s.email            = "jari.bakken@gmail.com"
   s.homepage         = "http://cukes.info"
+  s.files            = %w[Rakefile README.markdown] + Dir['lib/**/*']
   s.bindir           = 'bin'
   s.executables      = Dir['bin/*'].map { |f| File.basename(f) }
   s.add_runtime_dependency 'cucumber', '>= 0.3.96'
