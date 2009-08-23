@@ -48,7 +48,7 @@ module CukeTagger
     end
 
     def should_alter?(feature, element)
-      line    = element ? element.line : 0
+      line    = element.respond_to?(:line) ? element.line : 0
       success = features_to_change.include? [feature.file, line]
 
       if $DEBUG
