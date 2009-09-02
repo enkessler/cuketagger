@@ -1,3 +1,3 @@
 module CukeTagger
-  Version = "0.5"
+  Version = "0.6"
 end

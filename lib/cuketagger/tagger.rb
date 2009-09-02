@@ -18,6 +18,8 @@ module CukeTagger
           add_feature($1, $2.to_s)
         when /^(add|remove):(.+?)$/
           alterations << [$1.to_sym, $2]
+        when /^(replace):(.+?):(.+)$/
+          alterations << [$1.to_sym, [$2, $3]]
         when /^(-f|--force)$/
           opts[:autoformat] = "."
           opts[:source] = false
@@ -43,6 +45,9 @@ module CukeTagger
           tag_names.push tag_name
         when :remove
           tag_names.delete tag_name
+        when :replace
+          idx = tag_names.index tag_name.first
+          tag_names[idx] = tag_name.last
         end
       end
     end

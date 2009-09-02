@@ -89,6 +89,28 @@ Feature: CukeTagger
 
 
          """
+
+    Scenario: Replace tags in feature
+      When I run cuketagger with "replace:two:four sample.feature:6"
+      Then I should see:
+        """
+        # Feature comment
+        @one
+        Feature: Sample
+
+          @four @three
+          Scenario: Missing # sample.feature:6
+            Given missing   # sample.feature:7
+
+          # Scenario comment
+          @three
+          Scenario: Passing # sample.feature:11
+            Given passing   # sample.feature:12
+              | a | b |
+              | c | d |
+
+
+         """
     Scenario: Rewrite file
       When I run cuketagger with "--force remove:two remove:three sample.feature:6"
       Then the content of "sample.feature" should be:
