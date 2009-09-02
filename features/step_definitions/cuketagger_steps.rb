@@ -15,3 +15,6 @@ Then /^the content of "([^\"]*)" should be:$/ do |file_name, expected_content|
   File.read(file_name).should == expected_content
 end
 
+Then /^I should see '(.+?)' on stderr$/ do |str|
+  @stderr.should include(str)
+end

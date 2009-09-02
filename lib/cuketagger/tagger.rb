@@ -32,7 +32,7 @@ module CukeTagger
       formatter = Cucumber::Formatter::Pretty.new(step_mother, $stdout, opts)
       formatter.extend(TagVisitor)
       formatter.tagger = self
-      
+
       features.accept formatter
     end
 
@@ -47,24 +47,25 @@ module CukeTagger
           tag_names.delete tag_name
         when :replace
           idx = tag_names.index tag_name.first
-          tag_names[idx] = tag_name.last
+          if idx.nil?
+            $stderr.puts "expected #{tag_name.first.inspect} at #{file_and_line_for(feature, element).join(":")}, skipping"
+          else
+            tag_names[idx] = tag_name.last
+          end
         end
       end
     end
 
     def should_alter?(feature, element)
-      line    = element.respond_to?(:line) ? element.line : 0
-      success = features_to_change.include? [feature.file, line]
-
-      if $DEBUG
-        p :feature_class => feature.class, :element_class => element.class, :line => line, :success => success
-        p :features_to_change => features_to_change
-      end
-
-      success
+      features_to_change.include? file_and_line_for(feature, element)
     end
 
     private
+
+    def file_and_line_for(feature, element)
+      line = element.respond_to?(:line) ? element.line : 0
+      [feature.file, line]
+    end
 
     def add_feature(path, line)
       ff = Cucumber::FeatureFile.new(path).parse(step_mother, {})

@@ -111,6 +111,11 @@ Feature: CukeTagger
 
 
          """
+
+    Scenario: Replace non-existing tag
+      When I run cuketagger with "replace:nope:four sample.feature:6"
+      Then I should see 'expected "nope" at sample.feature:6, skipping' on stderr
+
     Scenario: Rewrite file
       When I run cuketagger with "--force remove:two remove:three sample.feature:6"
       Then the content of "sample.feature" should be:
