@@ -3,6 +3,7 @@
 require "rake/clean"
 require "rake/gempackagetask"
 require "lib/cuketagger/version"
+require "cucumber/rake/task"
 CLEAN.include %w[pkg]
 
 GEM_NAME = "cuketagger"
@@ -41,3 +42,6 @@ namespace :gem do
   end
 end
 
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = "--format pretty" 
+end
