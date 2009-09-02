@@ -1,6 +1,6 @@
 module CukeTagger
   class Tagger
-    USAGE = "#{File.basename $0} [-v|--version] [-f|--force] [add|remove]:TAG [FILE[:LINE]]+"
+    USAGE = "#{File.basename $0} [-v|--version] [-f|--force] [add|remove|replace]:TAG[:REPLACEMENT] [FILE[:LINE]]+"
 
     def self.execute(args)
       new.execute(args)
