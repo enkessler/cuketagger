@@ -17,7 +17,7 @@ module CukeTaggerHelper
   end
   
   def cuketagger
-    "ruby -rubygems #{ROOT}/bin/cuketagger"
+    "ruby -W0 -rubygems #{ROOT}/bin/cuketagger"
   end
 end
 
