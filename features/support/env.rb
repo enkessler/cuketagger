@@ -13,10 +13,7 @@ module CukeTaggerHelper
   end
   
   def run_cuketagger(args)
-    stdin, stdout, stderr = popen3("#{cuketagger} #{args}")
-    [stdout.read, stderr.read]
-  ensure
-    [stdin, stdout, stderr].each { |e| e.close }
+    %x{#{cuketagger} #{args} 2>&1}
   end
   
   def cuketagger
