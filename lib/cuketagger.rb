@@ -6,7 +6,5 @@ require "cucumber/formatter/pretty"
 require "set"
 
 require "cuketagger/version"
-require "cuketagger/tag_visitor"
+require "cuketagger/tag_formatter"
 require "cuketagger/tagger"
-
-

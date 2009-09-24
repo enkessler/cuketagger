@@ -30,10 +30,11 @@ module CukeTagger
       end
 
       formatter = Cucumber::Formatter::Pretty.new(step_mother, $stdout, opts)
-      formatter.extend(TagVisitor)
+      formatter.extend(TagFormatter)
       formatter.tagger = self
 
-      features.accept formatter
+      walker = Cucumber::Ast::TreeWalker.new(step_mother, [formatter], opts)
+      walker.visit_features features
     end
 
     def process(feature, element, tag_names)
@@ -42,22 +43,23 @@ module CukeTagger
       alterations.each do |op, tag_name|
         case op
         when :add
-          tag_names.push tag_name
+          tag_names.push "@#{tag_name}"
         when :remove
-          tag_names.delete tag_name
+          tag_names.delete "@#{tag_name}"
         when :replace
-          idx = tag_names.index tag_name.first
+          idx = tag_names.index "@#{tag_name.first}"
           if idx.nil?
             $stderr.puts "expected #{tag_name.first.inspect} at #{file_and_line_for(feature, element).join(":")}, skipping"
           else
-            tag_names[idx] = tag_name.last
+            tag_names[idx] = "@#{tag_name.last}"
           end
         end
       end
     end
 
     def should_alter?(feature, element)
-      features_to_change.include? file_and_line_for(feature, element)
+      fl = file_and_line_for(feature, element)
+      features_to_change.include? fl
     end
 
     private

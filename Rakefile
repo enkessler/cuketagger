@@ -21,7 +21,7 @@ spec = Gem::Specification.new do |s|
   s.files            = %w[Rakefile README.markdown] + Dir['lib/**/*']
   s.bindir           = 'bin'
   s.executables      = Dir['bin/*'].map { |f| File.basename(f) }
-  s.add_runtime_dependency 'cucumber', '>= 0.3.96'
+  s.add_runtime_dependency 'cucumber', '>= 0.3.103'
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
