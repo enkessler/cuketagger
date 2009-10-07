@@ -8,3 +8,9 @@ require "set"
 require "cuketagger/version"
 require "cuketagger/tag_formatter"
 require "cuketagger/tagger"
+
+module CukeTagger
+  def self.log(*args)
+    File.open("/tmp/cuketagger.log", "a") { |file| file.puts args.inspect } if $DEBUG
+  end
+end

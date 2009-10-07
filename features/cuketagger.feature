@@ -21,7 +21,6 @@ Feature: CukeTagger
             | a | b |
             | c | d |
 
-
       """
 
 

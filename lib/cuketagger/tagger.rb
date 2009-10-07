@@ -10,6 +10,8 @@ module CukeTagger
       abort(USAGE) if args.empty? || args.first =~ /^(-h|--help)$/
       opts = {:dry_run => true, :source => true}
 
+      CukeTagger.log :args, args
+
       args.each do |arg|
         case arg
         when /^-v|--version$/
@@ -29,6 +31,10 @@ module CukeTagger
         end
       end
 
+      alterations.uniq!
+
+      CukeTagger.log :alterations, alterations
+
       formatter = Cucumber::Formatter::Pretty.new(step_mother, $stdout, opts)
       formatter.extend(TagFormatter)
       formatter.tagger = self
@@ -38,6 +44,7 @@ module CukeTagger
     end
 
     def process(feature, element, tag_names)
+      CukeTagger.log :process, :element => element.class
       return unless should_alter?(feature, element)
 
       alterations.each do |op, tag_name|
@@ -59,13 +66,23 @@ module CukeTagger
 
     def should_alter?(feature, element)
       fl = file_and_line_for(feature, element)
+
+      CukeTagger.log(:file_and_line => fl, :features_to_change => features_to_change)
+
       features_to_change.include? fl
     end
 
     private
 
     def file_and_line_for(feature, element)
-      line = element.respond_to?(:line) ? element.line : 0
+      line = if element.respond_to?(:line)
+               element.line
+             elsif element.kind_of?(Cucumber::Ast::ScenarioOutline)
+               element.instance_variable_get("@line")
+             else
+               0
+             end
+
       [feature.file, line]
     end
 
@@ -84,7 +101,7 @@ module CukeTagger
     end
 
     def alterations
-      @alterations ||= Set.new
+      @alterations ||= []
     end
 
     def features_to_change
