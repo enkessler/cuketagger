@@ -10,10 +10,10 @@ Then /^I should see:$/ do |string|
   @output.should == string
 end
 
-Then /^I should see '(.+?)' on stderr$/ do |string|
-  @output.should include(string)
-end
-
 Then /^the content of "([^\"]*)" should be:$/ do |file_name, expected_content|
   File.read(file_name).should == expected_content
+end
+
+Then /^I should see '(.+?)' in the output$/ do |str|
+  @output.should include(str)
 end
