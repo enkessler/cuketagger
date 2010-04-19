@@ -1,3 +1,5 @@
+require "cucumber/cli/options"
+
 module CukeTagger
   class Tagger
     USAGE = "#{File.basename $0} [-v|--version] [-f|--force] [add|remove|replace]:TAG[:REPLACEMENT] [FILE[:LINE]]+"
@@ -87,7 +89,7 @@ module CukeTagger
     end
 
     def add_feature(path, line)
-      ff = Cucumber::FeatureFile.new(path).parse(step_mother, {})
+      ff = Cucumber::FeatureFile.new(path).parse(step_mother, Cucumber::Cli::Options.new)
       features_to_change << [path, line[1,line.length].to_i]
       features.add_feature ff
     end
