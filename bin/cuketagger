@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "#{File.dirname(__FILE__)}/../lib/cuketagger"
+require File.expand_path("../../lib/cuketagger", __FILE__)
 CukeTagger::Tagger.execute(ARGV)

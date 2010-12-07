@@ -2,7 +2,7 @@
 
 require "rake/clean"
 require "rake/gempackagetask"
-require "lib/cuketagger/version"
+require File.expand_path("../lib/cuketagger/version", __FILE__)
 require "cucumber/rake/task"
 CLEAN.include %w[pkg]
 
@@ -21,7 +21,8 @@ spec = Gem::Specification.new do |s|
   s.files            = %w[Rakefile README.markdown] + Dir['lib/**/*']
   s.bindir           = 'bin'
   s.executables      = Dir['bin/*'].map { |f| File.basename(f) }
-  s.add_runtime_dependency 'cucumber', '>= 0.3.103'
+
+  s.add_runtime_dependency 'cucumber', '~> 0.9.4'
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
@@ -43,7 +44,7 @@ namespace :gem do
 end
 
 Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "--format pretty" 
+  t.cucumber_opts = "--format pretty"
 end
 
 task :default => :features

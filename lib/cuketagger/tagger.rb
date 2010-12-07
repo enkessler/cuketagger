@@ -10,9 +10,9 @@ module CukeTagger
 
     def execute(args)
       abort(USAGE) if args.empty? || args.first =~ /^(-h|--help)$/
-      opts = {:dry_run => true, :source => true}
-
       CukeTagger.log :args, args
+
+      cuke_args = %w[--dry-run]
 
       args.each do |arg|
         case arg
@@ -25,8 +25,8 @@ module CukeTagger
         when /^(replace):(.+?):(.+)$/
           alterations << [$1.to_sym, [$2, $3]]
         when /^(-f|--force)$/
-          opts[:autoformat] = "."
-          opts[:source] = false
+          cuke_args << "--autoformat" << "."
+          cuke_args << "--no-source"
           Term::ANSIColor.coloring = false
         else
           abort(USAGE)
@@ -37,11 +37,14 @@ module CukeTagger
 
       CukeTagger.log :alterations, alterations
 
-      formatter = Cucumber::Formatter::Pretty.new(step_mother, $stdout, opts)
+      configuration = Cucumber::Cli::Configuration.new
+      configuration.parse!(cuke_args)
+
+      formatter = Cucumber::Formatter::Pretty.new(runtime, $stdout, configuration.instance_variable_get("@options"))
       formatter.extend(TagFormatter)
       formatter.tagger = self
 
-      walker = Cucumber::Ast::TreeWalker.new(step_mother, [formatter], opts)
+      walker = Cucumber::Ast::TreeWalker.new(runtime, [formatter], configuration)
       walker.visit_features features
     end
 
@@ -89,13 +92,13 @@ module CukeTagger
     end
 
     def add_feature(path, line)
-      ff = Cucumber::FeatureFile.new(path).parse(step_mother, Cucumber::Cli::Options.new)
+      ff = Cucumber::FeatureFile.new(path).parse({}, {})
       features_to_change << [path, line[1,line.length].to_i]
       features.add_feature ff
     end
 
-    def step_mother
-      @step_mother ||= Cucumber::StepMother.new
+    def runtime
+      @runtime ||= Cucumber::Runtime.new
     end
 
     def features
