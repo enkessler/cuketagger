@@ -41,6 +41,11 @@ namespace :gem do
     File.unlink file if ::File.exists?(file)
     File.open(file, "w+") { |f| f << spec.to_ruby }
   end
+
+  desc "Release cuketagger-#{GEM_VERSION}"
+  task :release => [:clean, :gem] do
+    sh "gem push pkg/#{GEM_NAME}-#{GEM_VERSION}.gem"
+  end
 end
 
 Cucumber::Rake::Task.new(:features) do |t|

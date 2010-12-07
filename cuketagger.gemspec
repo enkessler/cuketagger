@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-CUCUMBER_MIN_VERSION = "0.6.4"
+CUCUMBER_MIN_VERSION = "0.9.4"
 
 Gem::Specification.new do |s|
   s.name                      = %q{cuketagger}
