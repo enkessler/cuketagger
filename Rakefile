@@ -22,7 +22,7 @@ spec = Gem::Specification.new do |s|
   s.bindir           = 'bin'
   s.executables      = Dir['bin/*'].map { |f| File.basename(f) }
 
-  s.add_runtime_dependency 'cucumber', '~> 0.9.4'
+  s.add_runtime_dependency 'cucumber', '~> 0.9.2'
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
