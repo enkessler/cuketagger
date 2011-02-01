@@ -45,6 +45,26 @@ Feature: CukeTagger
 
        """
 
+  Scenario: Remove tags from multiple scenarios
+    When I run cuketagger with "remove:two remove:three sample.feature:6:11"
+    Then I should see:
+      """
+      # Feature comment
+      @one
+      Feature: Sample
+
+        Scenario: Missing # sample.feature:6
+          Given missing   # sample.feature:7
+
+        # Scenario comment
+        Scenario: Passing # sample.feature:11
+          Given passing   # sample.feature:12
+            | a | b |
+            | c | d |
+
+
+       """
+
     Scenario: Add tags to specific scenario
       When I run cuketagger with "add:foo add:bar sample.feature:11"
       Then I should see:

@@ -18,7 +18,7 @@ module CukeTagger
         case arg
         when /^-v|--version$/
           puts CukeTagger::Version
-        when /^(.+?\.feature)(:\d+)?$/
+        when /^(.+?\.feature)((:\d+)*)$/
           add_feature($1, $2.to_s)
         when /^(add|remove):(.+?)$/
           alterations << [$1.to_sym, $2]
@@ -91,9 +91,20 @@ module CukeTagger
       [feature.file, line]
     end
 
-    def add_feature(path, line)
+    def add_feature(path, lines)
       ff = Cucumber::FeatureFile.new(path).parse({}, {})
-      features_to_change << [path, line[1,line.length].to_i]
+
+      lines = lines.split(":")
+      lines.delete("")
+
+      if lines.empty?
+        features_to_change << [path, 0]
+      else
+        lines.each do |line|
+          features_to_change << [path, Integer(line)]
+        end
+      end
+
       features.add_feature ff
     end
 
