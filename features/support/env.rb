@@ -1,5 +1,5 @@
 require "#{File.dirname(__FILE__)}/../../lib/cuketagger"
-require "spec/expectations"
+require "rspec/expectations"
 require "open3"
 
 module CukeTaggerHelper
