@@ -1,9 +1,10 @@
 $:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-require "cucumber"
-require "cucumber/feature_file"
-require "cucumber/formatter/pretty"
 require "set"
+
+require "gherkin"
+require "gherkin/formatter/pretty_formatter"
+require "stringio"
 
 require "cuketagger/version"
 require "cuketagger/tag_formatter"

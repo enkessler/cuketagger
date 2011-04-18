@@ -32,16 +32,15 @@ Feature: CukeTagger
       @one
       Feature: Sample
 
-        Scenario: Missing # sample.feature:6
-          Given missing   # sample.feature:7
+        Scenario: Missing
+          Given missing
 
         # Scenario comment
         @three
-        Scenario: Passing # sample.feature:11
-          Given passing   # sample.feature:12
+        Scenario: Passing
+          Given passing
             | a | b |
             | c | d |
-
 
        """
 
@@ -53,15 +52,14 @@ Feature: CukeTagger
       @one
       Feature: Sample
 
-        Scenario: Missing # sample.feature:6
-          Given missing   # sample.feature:7
+        Scenario: Missing
+          Given missing
 
         # Scenario comment
-        Scenario: Passing # sample.feature:11
-          Given passing   # sample.feature:12
+        Scenario: Passing
+          Given passing
             | a | b |
             | c | d |
-
 
        """
 
@@ -74,16 +72,15 @@ Feature: CukeTagger
         Feature: Sample
 
           @two @three
-          Scenario: Missing # sample.feature:6
-            Given missing   # sample.feature:7
+          Scenario: Missing
+            Given missing
 
           # Scenario comment
           @three @foo @bar
-          Scenario: Passing # sample.feature:11
-            Given passing   # sample.feature:12
+          Scenario: Passing
+            Given passing
               | a | b |
               | c | d |
-
 
          """
 
@@ -96,16 +93,15 @@ Feature: CukeTagger
         Feature: Sample
 
           @two @three
-          Scenario: Missing # sample.feature:6
-            Given missing   # sample.feature:7
+          Scenario: Missing
+            Given missing
 
           # Scenario comment
           @three
-          Scenario: Passing # sample.feature:11
-            Given passing   # sample.feature:12
+          Scenario: Passing
+            Given passing
               | a | b |
               | c | d |
-
 
          """
 
@@ -118,22 +114,21 @@ Feature: CukeTagger
         Feature: Sample
 
           @four @three
-          Scenario: Missing # sample.feature:6
-            Given missing   # sample.feature:7
+          Scenario: Missing
+            Given missing
 
           # Scenario comment
           @three
-          Scenario: Passing # sample.feature:11
-            Given passing   # sample.feature:12
+          Scenario: Passing
+            Given passing
               | a | b |
               | c | d |
-
 
          """
 
     Scenario: Replace non-existing tag
       When I run cuketagger with "replace:nope:four sample.feature:6"
-      Then I should see 'expected "nope" at sample.feature:6, skipping' in the output
+      Then I should see 'expected "@nope" at sample.feature:6, skipping' in the output
 
     Scenario: Rewrite file
       When I run cuketagger with "--force remove:two remove:three sample.feature:6"
@@ -152,7 +147,6 @@ Feature: CukeTagger
             Given passing
               | a | b |
               | c | d |
-
 
         """
 

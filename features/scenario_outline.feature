@@ -24,15 +24,14 @@ Feature: Scenario Outline
     Feature: Outline Sample
 
       @foo @fails @bar
-      Scenario Outline: Test state          # outline.feature:4
-        Given <state> without a table       # outline.feature:5
-        Given <other_state> without a table # outline.feature:6
+      Scenario Outline: Test state
+        Given <state> without a table
+        Given <other_state> without a table
 
         Examples: Rainbow colours
           | state   | other_state |
           | missing | passing     |
           | passing | passing     |
           | failing | passing     |
-
 
     """
