@@ -105,6 +105,27 @@ Feature: CukeTagger
 
          """
 
+    Scenario: Add and remove tags from feature with line given
+      When I run cuketagger with "remove:one add:bar sample.feature:3"
+      Then I should see:
+        """
+        # Feature comment
+        @bar
+        Feature: Sample
+
+          @two @three
+          Scenario: Missing
+            Given missing
+
+          # Scenario comment
+          @three
+          Scenario: Passing
+            Given passing
+              | a | b |
+              | c | d |
+
+         """
+
     Scenario: Replace tags in feature
       When I run cuketagger with "replace:two:four sample.feature:6"
       Then I should see:
