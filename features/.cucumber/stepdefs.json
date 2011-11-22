@@ -1,0 +1,146 @@
+[
+  {
+    "source": "^a file named \"([^\\\"]*)\" with:$",
+    "flags": "",
+    "steps": [
+      {
+        "name": "a file named \"outline.feature\" with:",
+        "args": [
+          {
+            "offset": 14,
+            "val": "outline.feature"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source": "^I run cuketagger with \"([^\\\"]*)\"$",
+    "flags": "",
+    "steps": [
+      {
+        "name": "I run cuketagger with \"--force remove:two remove:three sample.feature:6\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "--force remove:two remove:three sample.feature:6"
+          }
+        ]
+      },
+      {
+        "name": "I run cuketagger with \"add:fails add:bar outline.feature:4\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "add:fails add:bar outline.feature:4"
+          }
+        ]
+      },
+      {
+        "name": "I run cuketagger with \"add:foo add:bar sample.feature:11\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "add:foo add:bar sample.feature:11"
+          }
+        ]
+      },
+      {
+        "name": "I run cuketagger with \"remove:one add:bar sample.feature\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "remove:one add:bar sample.feature"
+          }
+        ]
+      },
+      {
+        "name": "I run cuketagger with \"remove:one add:bar sample.feature:3\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "remove:one add:bar sample.feature:3"
+          }
+        ]
+      },
+      {
+        "name": "I run cuketagger with \"remove:two remove:three sample.feature:6\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "remove:two remove:three sample.feature:6"
+          }
+        ]
+      },
+      {
+        "name": "I run cuketagger with \"remove:two remove:three sample.feature:6:11\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "remove:two remove:three sample.feature:6:11"
+          }
+        ]
+      },
+      {
+        "name": "I run cuketagger with \"replace:nope:four sample.feature:6\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "replace:nope:four sample.feature:6"
+          }
+        ]
+      },
+      {
+        "name": "I run cuketagger with \"replace:two:four sample.feature:6\"",
+        "args": [
+          {
+            "offset": 23,
+            "val": "replace:two:four sample.feature:6"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source": "^I should see:$",
+    "flags": "",
+    "steps": [
+      {
+        "name": "I should see:",
+        "args": [
+
+        ]
+      }
+    ]
+  },
+  {
+    "source": "^the content of \"([^\\\"]*)\" should be:$",
+    "flags": "",
+    "steps": [
+      {
+        "name": "the content of \"sample.feature\" should be:",
+        "args": [
+          {
+            "offset": 16,
+            "val": "sample.feature"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source": "^I should see '(.+?)' in the output$",
+    "flags": "",
+    "steps": [
+      {
+        "name": "I should see 'expected \"@nope\" at sample.feature:6, skipping' in the output",
+        "args": [
+          {
+            "offset": 14,
+            "val": "expected \"@nope\" at sample.feature:6, skipping"
+          }
+        ]
+      }
+    ]
+  }
+]
