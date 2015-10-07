@@ -1,8 +1,9 @@
-require "cucumber/rake/task"
+require 'racatt'
 
 
-Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "--format pretty"
+namespace 'cuketagger' do
+  Racatt.create_tasks
 end
 
-task :default => :features
+
+task :default => 'cuketagger:test_everything'
