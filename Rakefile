@@ -9,21 +9,6 @@ CLEAN.include %w[pkg]
 GEM_NAME = "cuketagger"
 GEM_VERSION = CukeTagger::Version
 
-spec = Gem::Specification.new do |s|
-  s.name             = GEM_NAME
-  s.version          = GEM_VERSION
-  s.has_rdoc         = false
-  s.summary          = "batch tagging of cucumber features and scenarios"
-  s.description      = s.summary
-  s.authors          = %w[Jari Bakken]
-  s.email            = "jari.bakken@gmail.com"
-  s.homepage         = "http://cukes.info"
-  s.files            = %w[Rakefile README.markdown] + Dir['lib/**/*']
-  s.bindir           = 'bin'
-  s.executables      = Dir['bin/*'].map { |f| File.basename(f) }
-
-  s.add_runtime_dependency 'cucumber', '>= 0.9.2'
-end
 
 Rake::GemPackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
