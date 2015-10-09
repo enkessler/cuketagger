@@ -5,7 +5,7 @@ require 'cuketagger/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "cuketagger"
-  spec.version       = Cuketagger::VERSION
+  spec.version       = CukeTagger::VERSION
   spec.authors       = ["Jari Bakken", "Eric Kessler"]
   spec.email         = ["morrow748@gmail.com"]
 
