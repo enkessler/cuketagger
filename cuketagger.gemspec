@@ -9,8 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jari Bakken", "Eric Kessler"]
   spec.email         = ["morrow748@gmail.com"]
 
+  # todo - Update summary and description
   spec.summary       = "batch tagging of cucumber features and scenarios"
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  # spec.description   = %q{TODO: Write a longer description or delete this line.}
   spec.homepage      = "https://github.com/jarib/cuketagger"
   spec.license       = "MIT"
 
