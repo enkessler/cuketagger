@@ -10,7 +10,7 @@ namespace 'cuketagger' do
 
   task :smart_test do |t, args|
     rspec_args = ''
-    cucumber_args = '-f progress'
+    cucumber_args = 'testing/cucumber/features -f progress'
 
     Rake::Task['cuketagger:test_everything'].invoke(rspec_args, cucumber_args)
   end

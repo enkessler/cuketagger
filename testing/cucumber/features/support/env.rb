@@ -1,11 +1,11 @@
-require "#{File.dirname(__FILE__)}/../../lib/cuketagger"
+require "#{File.dirname(__FILE__)}/../../../../lib/cuketagger"
 require "rspec/expectations"
 require "open3"
 
 module CukeTaggerHelper
   include Open3
 
-  ROOT = File.expand_path "#{File.dirname(__FILE__)}/../.."
+  ROOT = File.expand_path "#{File.dirname(__FILE__)}/../../../../"
 
   def create_file(file_name, file_content)
     (@created_files ||= []) << file_name
