@@ -7,13 +7,13 @@ When /^I run cuketagger with "([^\"]*)"$/ do |args|
 end
 
 Then /^I should see:$/ do |string|
-  @output.should == string
+  expect(@output).to eq(string)
 end
 
 Then /^the content of "([^\"]*)" should be:$/ do |file_name, expected_content|
-  File.read(file_name).should == expected_content
+  expect(File.read(file_name)).to eq(expected_content)
 end
 
 Then /^I should see '(.+?)' in the output$/ do |str|
-  @output.should include(str)
+  expect(@output).to include(str)
 end
