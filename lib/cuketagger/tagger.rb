@@ -37,6 +37,10 @@ module CukeTagger
       files.each { |file| parse file, force }
     end
 
+
+    private
+
+
     def parse(file, write)
       return unless feature_to_change?(file)
 
@@ -72,8 +76,6 @@ module CukeTagger
         file == uri && (element.line == line || (line.nil? && element.kind_of?(Gherkin::Formatter::Model::Feature)))
       end
     end
-
-    private
 
     def add_feature(path, lines)
       lines = lines.split(":")
