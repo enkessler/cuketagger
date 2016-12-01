@@ -38,60 +38,30 @@ module CukeTagger
     end
 
     def parse(file, write)
-      content = File.read(file)
+      return unless feature_to_change?(file)
+
+      content = File.open(file) { |file| file.readlines }
+
+      feature_model = CukeModeler::FeatureFile.new(file).feature
 
       io = write ? File.open(file, "w") : $stdout
-      begin
-        pretty_formatter = Gherkin::Formatter::PrettyFormatter.new(io,
-                                                                  !(io == $stdout && $stdout.tty?), # monochrome
-                                                                  false) # executing
-        pretty_formatter.extend TagFormatter
-        pretty_formatter.tagger = self
 
-        parser = Gherkin::Parser::Parser.new(pretty_formatter, true)
-        parser.parse content, file, 0
+      begin
+        taggable_things = collect_taggable_models(feature_model)
+
+        taggable_things.each do |thing|
+          if thing_to_tag?(thing)
+            alterations.each do |alteration|
+              alter_thing(thing, alteration, content)
+            end
+          end
+        end
+
+        content = content.join
+
+        io.write(content)
       ensure
         io.close unless io == $stdout
-      end
-    end
-
-    def process(uri, element)
-      CukeTagger.log :process, :element => element.class
-      return unless should_alter?(uri, element)
-
-      @uri = uri
-
-      alterations.each do |op, tag_name|
-        case op
-        when :add
-          push_tag element, "@#{tag_name}"
-        when :remove
-          remove_tag element, "@#{tag_name}"
-        when :replace
-          replace_tag element, tag_name
-        end
-      end
-    end
-
-    def push_tag(element, tag_name)
-      element.tags << Gherkin::Formatter::Model::Tag.new(tag_name, element.line)
-    end
-
-    def remove_tag(element, tag_name)
-      element.tags.delete_if { |tag| tag.name == tag_name }
-    end
-
-    def replace_tag(element, tag_name)
-      to_replace, replacement = tag_name
-      to_replace  = "@#{to_replace}"
-      replacement = "@#{replacement}"
-
-      idx = element.tags.find_index { |tag| tag.name == to_replace }
-
-      if idx.nil?
-        $stderr.puts "expected #{to_replace.inspect} at #{@uri}:#{element.line}, skipping"
-      else
-        element.tags[idx] = Gherkin::Formatter::Model::Tag.new(replacement, element.line)
       end
     end
 
@@ -124,6 +94,87 @@ module CukeTagger
 
     def features_to_change
       @features_to_change ||= Set.new
+    end
+
+    def feature_to_change?(file_name)
+      features_to_change.any? { |name, line_number| name == file_name }
+    end
+
+    def thing_to_tag?(thing)
+      #todo - pass in file name as well for performance?
+      features_to_change.any? { |name, line_number|
+        name_match =(name == thing.get_ancestor(:feature_file).name)
+        number_match = (thing.source_line == line_number)
+        (name_match && number_match) || (thing.is_a?(CukeModeler::Feature) && line_number.nil?
+        )
+      }
+    end
+
+    def collect_taggable_models(feature_model)
+      results = feature_model.query do
+        select :model
+        from scenarios, outlines, examples
+      end
+      [feature_model] + results.collect { |result| result[:model] }
+    end
+
+    def alter_thing(thing, alteration, content)
+
+      case alteration.first
+        when :add
+          add_tag(thing, alteration.last, content)
+        when :remove
+          remove_tag(thing, alteration.last, content)
+        when :replace
+          replace_tag(thing, alteration.last.first, alteration.last.last, content)
+        else
+          raise "Unknown alteration type: #{alteration.first}"
+      end
+    end
+
+    def replace_tag(thing, old_tag, new_tag, content)
+      @file_offset ||= Hash.new(0)
+      @line_removed ||= {}
+      insertion_index = thing.source_line + @file_offset[thing.get_ancestor(:feature_file).path] - 2
+
+
+      if content[insertion_index] =~ /@#{old_tag}/
+        content[insertion_index] = content[insertion_index].sub("@#{old_tag}", "@#{new_tag}")
+      else
+        $stderr.puts "expected \"@#{old_tag}\" at #{thing.get_ancestor(:feature_file).name}:#{thing.source_line}, skipping"
+      end
+    end
+
+    def add_tag(thing, tag, content)
+      @file_offset ||= Hash.new(0)
+      @line_removed ||= {}
+      insertion_index = thing.source_line + @file_offset[thing.get_ancestor(:feature_file).path] - 2
+      insertion_index += 1 if @line_removed[thing]
+
+      if @line_removed[thing]
+        content.insert(insertion_index, '')
+        @line_removed[thing] = false
+      end
+
+      content[insertion_index] = content[insertion_index].chomp + "#{tag_spacing(content[insertion_index])}@#{tag}\n"
+    end
+
+    def remove_tag(thing, tag, content)
+      @file_offset ||= Hash.new(0)
+      @line_removed ||= {}
+      insertion_index = thing.source_line + @file_offset[thing.get_ancestor(:feature_file).path] - 2
+
+      content[insertion_index] = content[insertion_index].sub("@#{tag}", '')
+      if content[insertion_index] =~ /^\s*$/
+        content[insertion_index] = nil
+        content.compact!
+        @file_offset[thing.get_ancestor(:feature_file).path] -= 1
+        @line_removed[thing] = true
+      end
+    end
+
+    def tag_spacing(line_text)
+      line_text =~ /\S/ ? ' ' : ''
     end
 
   end
