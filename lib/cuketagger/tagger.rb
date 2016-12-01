@@ -8,7 +8,6 @@ module CukeTagger
 
     def execute(args)
       abort(USAGE) if args.empty? || args.first =~ /^(-h|--help)$/
-      CukeTagger.log :args, args
 
       force = false
 
@@ -30,8 +29,6 @@ module CukeTagger
       end
 
       alterations.uniq!
-
-      CukeTagger.log :alterations, alterations
 
       files = features_to_change.map { |file, line| file }.uniq
       files.each { |file| parse file, force }
@@ -70,8 +67,6 @@ module CukeTagger
     end
 
     def should_alter?(uri, element)
-      CukeTagger.log(:file_and_line => [uri, element.line], :features_to_change => features_to_change)
-
       features_to_change.any? do |file, line|
         file == uri && (element.line == line || (line.nil? && element.kind_of?(Gherkin::Formatter::Model::Feature)))
       end

@@ -10,7 +10,4 @@ require "cuketagger/tagger"
 require "cuketagger/array_list_extension" if defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
 
 module CukeTagger
-  def self.log(*args)
-    File.open("/tmp/cuketagger.log", "a") { |file| file.puts args.inspect } if $DEBUG
-  end
 end
