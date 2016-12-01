@@ -21,17 +21,17 @@ Feature: Scenario Outline
     When I run cuketagger with "add:fails add:bar outline.feature:4"
     Then I should see:
     """
-    Feature: Outline Sample
+      Feature: Outline Sample
 
-      @foo @fails @bar
-      Scenario Outline: Test state
-        Given <state> without a table
-        Given <other_state> without a table
+        @foo @fails @bar
+        Scenario Outline: Test state
+          Given <state> without a table
+          Given <other_state> without a table
 
-        Examples: Rainbow colours
-          | state   | other_state |
-          | missing | passing     |
-          | passing | passing     |
-          | failing | passing     |
+          Examples: Rainbow colours
+            | state   | other_state |
+            | missing | passing     |
+            | passing | passing     |
+            | failing | passing     |
 
     """
