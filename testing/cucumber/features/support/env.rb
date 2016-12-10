@@ -1,27 +1,10 @@
-require "#{File.dirname(__FILE__)}/../../../../lib/cuketagger"
+this_dir = File.dirname(__FILE__)
+
 require "rspec/expectations"
-require "open3"
 
-module CukeTaggerHelper
-  include Open3
+require "#{this_dir}/../../../cuke_tagger_helper"
+require "#{this_dir}/../../../../lib/cuketagger"
 
-  ROOT = File.expand_path "#{File.dirname(__FILE__)}/../../../../"
-
-  def create_file(file_name, file_content)
-    (@created_files ||= []) << file_name
-    File.open(file_name, 'w') { |f| f << file_content }
-  end
-
-  def run_cuketagger(args)
-    %x{#{cuketagger} #{args} 2>&1}
-  end
-
-  def cuketagger
-    "ruby -W0 -rubygems #{'-d ' if $DEBUG} #{ROOT}/bin/cuketagger"
-  end
-end
-
-World(CukeTaggerHelper)
 
 After do
   @created_files.each { |f| File.delete(f) }
