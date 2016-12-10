@@ -5,7 +5,7 @@ namespace 'cuketagger' do
   Racatt.create_tasks
 
   # The task that CI will use
-  task :ci_build => [:test_everything]
+  task :ci_build => [:smart_test]
 
 
   task :smart_test do |t, args|
