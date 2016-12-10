@@ -1510,9 +1510,30 @@ describe 'Tagger, Integration' do
   describe 'arguments' do
 
     it 'can understand multiple changes in the same file' do
-      skip('finish me')
+      source_text = ['@bar    @foo   @baz',
+                     'Feature:',
+                     '',
+                     '   @foo     @bar',
+                     'Scenario:',
+                     '  * a step',
+                     '',
+                     '@bar @foo     ',
+                     'Scenario Outline:',
+                     '  * a step',
+                     '',
+                     'Examples:',
+                     '  | param |',
+                     '  | value |'].join("\n")
 
-      'file_name1:2:3:4'
+      File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+
+      args = "replace:foo:new_tag #{file_path}:2 #{file_path}:5 #{file_path}:9"
+      separate_output = CukeTaggerHelper.run_cuketagger(args)
+
+      args = "replace:foo:new_tag #{file_path}:2:5:9"
+      combined_output = CukeTaggerHelper.run_cuketagger(args)
+
+      expect(separate_output).to eq(combined_output)
     end
 
     it 'does other things' do
