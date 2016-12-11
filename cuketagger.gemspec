@@ -9,8 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jari Bakken", "Eric Kessler"]
   spec.email         = ["morrow748@gmail.com"]
 
+  # todo - Update summary and description
   spec.summary       = "batch tagging of cucumber features and scenarios"
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  # spec.description   = %q{TODO: Write a longer description or delete this line.}
   spec.homepage      = "https://github.com/jarib/cuketagger"
   spec.license       = "MIT"
 
@@ -19,9 +20,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'cucumber', '~>1.0'
+  spec.add_runtime_dependency 'cuke_modeler', '~>1.0'
+  spec.add_runtime_dependency 'cql', '~>1.0', '>= 1.3.0'
 
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "racatt"
+  spec.add_development_dependency "racatt", '~> 1.0'
+  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'cucumber', '< 3.0.0'
 end
