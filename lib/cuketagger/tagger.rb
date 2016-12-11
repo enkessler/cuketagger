@@ -38,14 +38,14 @@ module CukeTagger
     private
 
 
-    def parse(file, write)
-      return unless feature_to_change?(file)
+    def parse(file_path, write)
+      return unless feature_to_change?(file_path)
 
-      content = File.open(file) { |file| file.readlines }
+      content = File.open(file_path) { |file| file.readlines }
 
-      feature_model = CukeModeler::FeatureFile.new(file).feature
+      feature_model = CukeModeler::FeatureFile.new(file_path).feature
 
-      io = write ? File.open(file, "w") : $stdout
+      io = write ? File.open(file_path, "w") : $stdout
 
       begin
         taggable_things = collect_taggable_models(feature_model)

@@ -112,37 +112,38 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-      File.open("#{@default_file_directory}/foo.feature", 'w') { |file| file.write(source_text_1) }
-      File.open("#{@default_file_directory}/bar.feature", 'w') { |file| file.write(source_text_2) }
+      File.open("#{@default_file_directory}/foo.feature", 'w') { |file_1| file_1.write(source_text_1) }
+      File.open("#{@default_file_directory}/bar.feature", 'w') { |file_2| file_2.write(source_text_2) }
 
       args = "add:foo #{@default_file_directory}/foo.feature #{@default_file_directory}/bar.feature"
 
       output = CukeTaggerHelper.run_cuketagger(args)
 
-      expect(output).to eq(['@foo',
-                            'Feature: Foo',
-                            '',
-                            'Scenario:',
-                            '  * a step',
-                            '',
-                            'Scenario Outline:',
-                            '  * a step',
-                            '',
-                            'Examples:',
-                            '  | param |',
-                            '  | value |',
-                            '@foo',
-                            'Feature: Bar',
-                            '',
-                            'Scenario:',
-                            '  * a step',
-                            '',
-                            'Scenario Outline:',
-                            '  * a step',
-                            '',
-                            'Examples:',
-                            '  | param |',
-                            '  | value |'].join("\n"))
+      expect(output).to include(['@foo',
+                                 'Feature: Foo',
+                                 '',
+                                 'Scenario:',
+                                 '  * a step',
+                                 '',
+                                 'Scenario Outline:',
+                                 '  * a step',
+                                 '',
+                                 'Examples:',
+                                 '  | param |',
+                                 '  | value |'].join("\n"))
+
+      expect(output).to include(['@foo',
+                                 'Feature: Bar',
+                                 '',
+                                 'Scenario:',
+                                 '  * a step',
+                                 '',
+                                 'Scenario Outline:',
+                                 '  * a step',
+                                 '',
+                                 'Examples:',
+                                 '  | param |',
+                                 '  | value |'].join("\n"))
     end
 
     it 'correctly adds a tag to a feature' do
@@ -667,43 +668,44 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-      File.open("#{@default_file_directory}/foo.feature", 'w') { |file| file.write(source_text_1) }
-      File.open("#{@default_file_directory}/bar.feature", 'w') { |file| file.write(source_text_2) }
+      File.open("#{@default_file_directory}/foo.feature", 'w') { |file_1| file_1.write(source_text_1) }
+      File.open("#{@default_file_directory}/bar.feature", 'w') { |file_2| file_2.write(source_text_2) }
 
       args = "remove:bar #{@default_file_directory}/foo.feature #{@default_file_directory}/bar.feature"
 
       output = CukeTaggerHelper.run_cuketagger(args)
 
-      expect(output).to eq(['@foo',
-                            'Feature: Foo',
-                            '',
-                            '@foo @bar',
-                            'Scenario:',
-                            '  * a step',
-                            '',
-                            '@foo @bar',
-                            'Scenario Outline:',
-                            '  * a step',
-                            '',
-                            '@foo @bar',
-                            'Examples:',
-                            '  | param |',
-                            '  | value |',
-                            '@foo',
-                            'Feature: Bar',
-                            '',
-                            '@foo @bar',
-                            'Scenario:',
-                            '  * a step',
-                            '',
-                            '@foo @bar',
-                            'Scenario Outline:',
-                            '  * a step',
-                            '',
-                            '@foo @bar',
-                            'Examples:',
-                            '  | param |',
-                            '  | value |'].join("\n"))
+      expect(output).to include(['@foo',
+                                 'Feature: Foo',
+                                 '',
+                                 '@foo @bar',
+                                 'Scenario:',
+                                 '  * a step',
+                                 '',
+                                 '@foo @bar',
+                                 'Scenario Outline:',
+                                 '  * a step',
+                                 '',
+                                 '@foo @bar',
+                                 'Examples:',
+                                 '  | param |',
+                                 '  | value |'].join("\n"))
+
+      expect(output).to include(['@foo',
+                                 'Feature: Bar',
+                                 '',
+                                 '@foo @bar',
+                                 'Scenario:',
+                                 '  * a step',
+                                 '',
+                                 '@foo @bar',
+                                 'Scenario Outline:',
+                                 '  * a step',
+                                 '',
+                                 '@foo @bar',
+                                 'Examples:',
+                                 '  | param |',
+                                 '  | value |'].join("\n"))
     end
 
     it 'correctly removes a tag from a feature' do
@@ -1124,43 +1126,44 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-      File.open("#{@default_file_directory}/foo.feature", 'w') { |file| file.write(source_text_1) }
-      File.open("#{@default_file_directory}/bar.feature", 'w') { |file| file.write(source_text_2) }
+      File.open("#{@default_file_directory}/foo.feature", 'w') { |file_1| file_1.write(source_text_1) }
+      File.open("#{@default_file_directory}/bar.feature", 'w') { |file_2| file_2.write(source_text_2) }
 
       args = "replace:foo:bar #{@default_file_directory}/foo.feature #{@default_file_directory}/bar.feature:5"
 
       output = CukeTaggerHelper.run_cuketagger(args)
 
-      expect(output).to eq(['@bar',
-                            'Feature: Foo',
-                            '',
-                            '@foo',
-                            'Scenario:',
-                            '  * a step',
-                            '',
-                            '@foo',
-                            'Scenario Outline:',
-                            '  * a step',
-                            '',
-                            '@foo',
-                            'Examples:',
-                            '  | param |',
-                            '  | value |',
-                            '@foo',
-                            'Feature: Bar',
-                            '',
-                            '@bar',
-                            'Scenario:',
-                            '  * a step',
-                            '',
-                            '@foo',
-                            'Scenario Outline:',
-                            '  * a step',
-                            '',
-                            '@foo',
-                            'Examples:',
-                            '  | param |',
-                            '  | value |'].join("\n"))
+      expect(output).to include(['@bar',
+                                 'Feature: Foo',
+                                 '',
+                                 '@foo',
+                                 'Scenario:',
+                                 '  * a step',
+                                 '',
+                                 '@foo',
+                                 'Scenario Outline:',
+                                 '  * a step',
+                                 '',
+                                 '@foo',
+                                 'Examples:',
+                                 '  | param |',
+                                 '  | value |'].join("\n"))
+
+      expect(output).to include(['@foo',
+                                 'Feature: Bar',
+                                 '',
+                                 '@bar',
+                                 'Scenario:',
+                                 '  * a step',
+                                 '',
+                                 '@foo',
+                                 'Scenario Outline:',
+                                 '  * a step',
+                                 '',
+                                 '@foo',
+                                 'Examples:',
+                                 '  | param |',
+                                 '  | value |'].join("\n"))
     end
 
     it 'correctly replaces a tag on a feature' do
