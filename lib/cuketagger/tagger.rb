@@ -50,6 +50,10 @@ module CukeTagger
       begin
         taggable_things = collect_taggable_models(feature_model)
 
+        # Elements must be altered in the order that they appear in the file in order to
+        # guarantee that any line adjustments are applied appropriately.
+        taggable_things.sort!{|a,b| a.source_line <=> b.source_line}
+
         taggable_things.each do |thing|
           if thing_to_tag?(thing)
             alterations.each do |alteration|
