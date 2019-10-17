@@ -1,6 +1,16 @@
+Basic stuff:
 [![Gem Version](https://badge.fury.io/rb/cuketagger.svg)](https://rubygems.org/gems/cuketagger)
+[![Project License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/mit-license.php)
+[![Downloads](https://img.shields.io/gem/dt/cuketagger.svg)](https://rubygems.org/gems/cuketagger)
+
+User stuff:
+[![Yard Docs](http://img.shields.io/badge/Documentation-API-blue.svg)](https://www.rubydoc.info/gems/cuketagger)
+
+Developer stuff:
 [![Build Status](https://travis-ci.org/enkessler/cuketagger.svg?branch=dev)](https://travis-ci.org/enkessler/cuketagger)
-[![Dependency Status](https://gemnasium.com/enkessler/cuketagger.svg)](https://gemnasium.com/enkessler/cuketagger)
+[![Maintainability](https://api.codeclimate.com/v1/badges/82a45e63ba89aaa3c760/maintainability)](https://codeclimate.com/github/enkessler/cuketagger/maintainability)
+
+---
 
 
 # Cuketagger
