@@ -1,3 +1,6 @@
+# Using this distribution because the default distribution does not have a working Ruby 1.8.7
+dist: trusty
+
 language: ruby
 rvm:
   - 1.8.7
