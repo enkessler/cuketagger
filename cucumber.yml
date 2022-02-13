@@ -1,0 +1,14 @@
+<%
+  # Can't use 'require_relative' because it won't work on JRuby inside of an ERB file
+  require "#{__dir__}/cuketagger_project_settings"
+  require "#{__dir__}/cuketagger_helper"
+
+  # The output folder needs to exist no matter how Cucumber was invoked, so do it here
+  FileUtils.mkdir(ENV['CUKETAGGER_REPORT_FOLDER']) unless File.exist?(ENV['CUKETAGGER_REPORT_FOLDER'])
+
+  cucumber_major_version = CukeTagger::CukeTaggerHelper.major_version_of('cucumber')
+%>
+
+wip_filter: -t <%= cucumber_major_version < 4 ? "~@wip": "'not @wip'" %>
+html: -f html -o <%= ENV['CUKETAGGER_REPORT_FOLDER'] %>/<%= ENV['CUKETAGGER_CUCUMBER_REPORT_HTML_FILE'] %>
+default: testing/cucumber/features -p html -p wip_filter -f progress --color -r environments/cucumber_env.rb <%= '--publish-quiet' if cucumber_major_version >= 5 %>

@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/spec_helper"
+require_relative '../../../environments/rspec_env'
 
 
-describe 'Tagger, Unit', :unit_test => true do
+RSpec.describe 'Tagger, Unit', unit_test: true do
 
   clazz = CukeTagger::Tagger
 

@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/spec_helper"
+require_relative '../../../environments/rspec_env'
 
 
-describe 'Tagger, Integration' do
+RSpec.describe 'Tagger, Integration' do
 
   clazz = CukeTagger::Tagger
 
@@ -18,11 +18,7 @@ describe 'Tagger, Integration' do
                        'Examples:',
                        '  | param |',
                        '  | value |'].join("\n") }
-  let(:file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
-
-  before(:each) do
-    File.open(file_path, 'w') { |file| file.write(source_text) }
-  end
+  let(:file_path) { create_feature_file(text: source_text) }
 
 
   describe 'adding tags' do
@@ -112,10 +108,11 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-      File.open("#{@default_file_directory}/foo.feature", 'w') { |file_1| file_1.write(source_text_1) }
-      File.open("#{@default_file_directory}/bar.feature", 'w') { |file_2| file_2.write(source_text_2) }
+      directory = create_directory
+      create_feature_file(directory: directory, name: 'foo' , text: source_text_1)
+      create_feature_file(directory: directory, name: 'bar' , text: source_text_2)
 
-      args = "add:foo #{@default_file_directory}/foo.feature #{@default_file_directory}/bar.feature"
+      args = "add:foo #{directory}/foo.feature #{directory}/bar.feature"
 
       output = CukeTaggerHelper.run_cuketagger(args)
 
@@ -258,7 +255,7 @@ describe 'Tagger, Integration' do
                        '          | param |',
                        '          | value |'].join("\n")
 
-        File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+        file_path = create_feature_file(text: source_text)
 
         args = "add:bar #{file_path}:2 #{file_path}:4 #{file_path}:7 #{file_path}:10"
 
@@ -292,7 +289,7 @@ describe 'Tagger, Integration' do
                        '          | param |',
                        '          | value |'].join("\n")
 
-        File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+        file_path = create_feature_file(text: source_text)
 
         args = "add:bar #{file_path}:2 #{file_path}:4 #{file_path}:7 #{file_path}:10"
 
@@ -328,7 +325,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "add:foo #{file_path}"
 
@@ -384,7 +381,7 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-        File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+        file_path = create_feature_file(text: source_text)
 
         args = "add:foo #{file_path}:4"
 
@@ -419,7 +416,7 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-        File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+        file_path = create_feature_file(text: source_text)
 
         args = "add:foo #{file_path}:2 #{file_path}:4 #{file_path}:7 #{file_path}:10"
 
@@ -456,7 +453,7 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-        File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+        file_path = create_feature_file(text: source_text)
 
         args = "add:foo #{file_path}"
 
@@ -565,7 +562,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open(file_path, 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "remove:foo remove:baz #{file_path}:9"
 
@@ -668,10 +665,11 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-      File.open("#{@default_file_directory}/foo.feature", 'w') { |file_1| file_1.write(source_text_1) }
-      File.open("#{@default_file_directory}/bar.feature", 'w') { |file_2| file_2.write(source_text_2) }
+      directory = create_directory
+      create_feature_file(directory: directory, name: 'foo' , text: source_text_1)
+      create_feature_file(directory: directory, name: 'bar' , text: source_text_2)
 
-      args = "remove:bar #{@default_file_directory}/foo.feature #{@default_file_directory}/bar.feature"
+      args = "remove:bar #{directory}/foo.feature #{directory}/bar.feature"
 
       output = CukeTaggerHelper.run_cuketagger(args)
 
@@ -834,7 +832,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "remove:bar #{file_path}:2 #{file_path}:5 #{file_path}:9 #{file_path}:12"
 
@@ -873,7 +871,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open(file_path, 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "remove:bar remove:bar remove:bar #{file_path}"
 
@@ -1069,7 +1067,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open(file_path, 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "replace:foo:baz replace:baz:foo #{file_path}:8"
 
@@ -1126,10 +1124,11 @@ describe 'Tagger, Integration' do
                        '  | param |',
                        '  | value |'].join("\n")
 
-      File.open("#{@default_file_directory}/foo.feature", 'w') { |file_1| file_1.write(source_text_1) }
-      File.open("#{@default_file_directory}/bar.feature", 'w') { |file_2| file_2.write(source_text_2) }
+      directory = create_directory
+      create_feature_file(directory: directory, name: 'foo' , text: source_text_1)
+      create_feature_file(directory: directory, name: 'bar' , text: source_text_2)
 
-      args = "replace:foo:bar #{@default_file_directory}/foo.feature #{@default_file_directory}/bar.feature:5"
+      args = "replace:foo:bar #{directory}/foo.feature #{directory}/bar.feature:5"
 
       output = CukeTaggerHelper.run_cuketagger(args)
 
@@ -1318,7 +1317,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "replace:foo:new_tag #{file_path}:2 #{file_path}:5 #{file_path}:9"
 
@@ -1354,7 +1353,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open(file_path, 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "replace:bar:foo replace:bar:foo replace:bar:foo #{file_path}"
 
@@ -1393,7 +1392,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open(file_path, 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "add:new_tag remove:bar replace:baz:bazzz #{file_path}"
 
@@ -1427,7 +1426,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open(file_path, 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "remove:bar replace:bar:new_tag #{file_path}"
 
@@ -1528,7 +1527,7 @@ describe 'Tagger, Integration' do
                      '  | param |',
                      '  | value |'].join("\n")
 
-      File.open("#{file_path}", 'w') { |file| file.write(source_text) }
+      file_path = create_feature_file(text: source_text)
 
       args = "replace:foo:new_tag #{file_path}:2 #{file_path}:5 #{file_path}:9"
       separate_output = CukeTaggerHelper.run_cuketagger(args)

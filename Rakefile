@@ -1,21 +1,16 @@
-require 'racatt'
+require 'bundler/gem_tasks'
+require 'rake'
+require 'rainbow'
+
+Rainbow.enabled = true
+
+require_relative 'cuketagger_project_settings'
+require_relative 'cuketagger_helper'
+require_relative 'rakefiles/documentation_tasks'
+require_relative 'rakefiles/other_tasks'
+require_relative 'rakefiles/release_tasks'
+require_relative 'rakefiles/reporting_tasks'
+require_relative 'rakefiles/testing_tasks'
 
 
-namespace 'cuketagger' do
-  Racatt.create_tasks
-
-  # The task that CI will use
-  task :ci_build => [:smart_test]
-
-
-  task :smart_test do |t, args|
-    rspec_args = '--pattern testing/rspec/spec/**/*_spec.rb'
-    cucumber_args = 'testing/cucumber/features -r testing/cucumber/features -f progress'
-
-    Rake::Task['cuketagger:test_everything'].invoke(rspec_args, cucumber_args)
-  end
-
-end
-
-
-task :default => 'cuketagger:smart_test'
+task :default => 'cuketagger:test_everything' # rubocop:disable Style/HashSyntax

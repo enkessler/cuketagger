@@ -25,7 +25,7 @@ Feature: CukeTagger
 
 
   Scenario: Remove tags from specific scenario
-    When I run cuketagger with "remove:two remove:three sample.feature:6"
+    When I run cuketagger with "remove:two remove:three <path_to>/sample.feature:6"
     Then I should see:
       """
       # Feature comment
@@ -45,7 +45,7 @@ Feature: CukeTagger
        """
 
   Scenario: Remove tags from multiple scenarios
-    When I run cuketagger with "remove:two remove:three sample.feature:6:11"
+    When I run cuketagger with "remove:two remove:three <path_to>/sample.feature:6:11"
     Then I should see:
       """
       # Feature comment
@@ -64,7 +64,7 @@ Feature: CukeTagger
        """
 
     Scenario: Add tags to specific scenario
-      When I run cuketagger with "add:foo add:bar sample.feature:11"
+      When I run cuketagger with "add:foo add:bar <path_to>/sample.feature:11"
       Then I should see:
         """
         # Feature comment
@@ -85,7 +85,7 @@ Feature: CukeTagger
          """
 
     Scenario: Add and remove tags from feature
-      When I run cuketagger with "remove:one add:bar sample.feature"
+      When I run cuketagger with "remove:one add:bar <path_to>/sample.feature"
       Then I should see:
         """
         # Feature comment
@@ -106,7 +106,7 @@ Feature: CukeTagger
          """
 
     Scenario: Add and remove tags from feature with line given
-      When I run cuketagger with "remove:one add:bar sample.feature:3"
+      When I run cuketagger with "remove:one add:bar <path_to>/sample.feature:3"
       Then I should see:
         """
         # Feature comment
@@ -127,7 +127,7 @@ Feature: CukeTagger
          """
 
     Scenario: Replace tags in feature
-      When I run cuketagger with "replace:two:four sample.feature:6"
+      When I run cuketagger with "replace:two:four <path_to>/sample.feature:6"
       Then I should see:
         """
         # Feature comment
@@ -148,11 +148,11 @@ Feature: CukeTagger
          """
 
     Scenario: Replace non-existing tag
-      When I run cuketagger with "replace:nope:four sample.feature:6"
+      When I run cuketagger with "replace:nope:four <path_to>/sample.feature:6"
       Then I should see 'expected "@nope" at sample.feature:6, skipping' in the output
 
     Scenario: Rewrite file
-      When I run cuketagger with "--force remove:two remove:three sample.feature:6"
+      When I run cuketagger with "--force remove:two remove:three <path_to>/sample.feature:6"
       Then the content of "sample.feature" should be:
         """
         # Feature comment

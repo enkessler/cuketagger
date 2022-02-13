@@ -1,0 +1,7 @@
+<% # Can't use 'require_relative' because it won't work on JRuby inside of an ERB file %>
+<% require "#{__dir__}/cuketagger_project_settings" %>
+
+--tag ~@wip
+--force-color
+--format html --out <%= ENV['CUKETAGGER_REPORT_FOLDER'] %>/<%= ENV['CUKETAGGER_RSPEC_REPORT_HTML_FILE'] %>
+--format progress

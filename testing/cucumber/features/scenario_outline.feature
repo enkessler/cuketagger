@@ -18,7 +18,7 @@ Feature: Scenario Outline
             | failing | passing     |
 
     """
-    When I run cuketagger with "add:fails add:bar outline.feature:4"
+    When I run cuketagger with "add:fails add:bar <path_to>/outline.feature:4"
     Then I should see:
     """
       Feature: Outline Sample

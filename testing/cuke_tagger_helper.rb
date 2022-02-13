@@ -16,7 +16,7 @@ module CukeTaggerHelper
   end
 
   def self.cuketagger
-    "ruby -W0 -rubygems #{'-d ' if $DEBUG} #{ROOT}/bin/cuketagger"
+    "ruby -W0 #{'-d ' if $DEBUG} #{ROOT}/exe/cuketagger"
   end
 
   def self.log_message(message)
