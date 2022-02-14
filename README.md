@@ -7,7 +7,8 @@ User stuff:
 [![Yard Docs](http://img.shields.io/badge/Documentation-API-blue.svg)](https://www.rubydoc.info/gems/cuketagger)
 
 Developer stuff:
-[![Build Status](https://travis-ci.org/enkessler/cuketagger.svg?branch=dev)](https://travis-ci.org/enkessler/cuketagger)
+[![Build Status](https://github.com/enkessler/cuketagger/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/enkessler/cuketagger/actions/workflows/ci.yml?query=branch%3Amaster)
+[![Coverage Status](https://coveralls.io/repos/github/enkessler/cuketagger/badge.svg?branch=master)](https://coveralls.io/github/enkessler/cuketagger?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/82a45e63ba89aaa3c760/maintainability)](https://codeclimate.com/github/enkessler/cuketagger/maintainability)
 
 ---
