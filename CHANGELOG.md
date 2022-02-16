@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
  - Dropped support for Ruby 1.x. Currently supported Ruby versions are 2.x and 3.x.
 
+### Changed
+- No longer including every file in the Git repository as part of the gem. Only the files needed for using the 
+  gem (and the informative ones like the README) will be packaged into the released gem.
+
 
 ## [1.6.0] - 2016-12-11
 
