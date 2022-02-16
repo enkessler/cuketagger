@@ -59,13 +59,10 @@ themselves, add the explicit `force` tag.
     $ cuketagger --force remove:wip add:release5 replace:qa:prod features/foo.feature:6 features/bar.feature
 
 
-## Contributing
+## Development and Contributing
 
-1. Fork it
-2. Create your feature branch (off of the development branch)
-   `git checkout -b my-new-feature`
-3. Commit your changes
-   `git commit -am 'Add some feature'`
-4. Push to the branch
-   `git push origin my-new-feature`
-5. Create new Pull Request
+See [CONTRIBUTING.md](https://github.com/enkessler/cuketagger/blob/master/CONTRIBUTING.md)
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
