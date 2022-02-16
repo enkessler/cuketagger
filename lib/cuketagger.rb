@@ -7,7 +7,6 @@ require 'cql/model_dsl'
 
 require "cuketagger/version"
 require "cuketagger/tagger"
-require "cuketagger/array_list_extension" if defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
 
 module CukeTagger
 end
