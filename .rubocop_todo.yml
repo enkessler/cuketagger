@@ -187,6 +187,8 @@ Metrics/BlockLength:
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
   Max: 170
+  Exclude:
+    - 'lib/cuketagger/tagger.rb'
 
 # Offense count: 1
 Metrics/CyclomaticComplexity:

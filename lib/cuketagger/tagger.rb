@@ -1,11 +1,15 @@
 module CukeTagger
+  # The class responsible for tagging things
   class Tagger
+    # The expected format of a cuketagger command
     USAGE = "#{File.basename $0} [-v|--version] [-f|--force] [add|remove|replace]:TAG[:REPLACEMENT] [FILE[:LINE]]+"
 
+    # Performs tagging based on the provided arguments
     def self.execute(args)
       new.execute(args)
     end
 
+    # Performs tagging based on the provided arguments
     def execute(args)
       abort(USAGE) if args.empty? || args.first =~ /^(-h|--help)$/
 

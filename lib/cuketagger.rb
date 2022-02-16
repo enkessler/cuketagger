@@ -8,5 +8,6 @@ require 'cql/model_dsl'
 require "cuketagger/version"
 require "cuketagger/tagger"
 
+# The top level namespace for CukeTagger related code.
 module CukeTagger
 end
