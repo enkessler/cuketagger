@@ -36,6 +36,8 @@ jobs:
             ruby-version: '2.1'
           - os: windows-latest
             ruby-version: '2.2'
+          - os: windows-latest
+            ruby-version: '2.3'
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
