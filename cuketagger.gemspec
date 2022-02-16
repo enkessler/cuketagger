@@ -10,21 +10,27 @@ Gem::Specification.new do |spec|
   spec.email         = ["morrow748@gmail.com"]
 
   # todo - Update summary and description
-  spec.summary       = "batch tagging of cucumber features and scenarios"
+  spec.summary       = "Batch tagging of cucumber features and scenarios"
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "https://github.com/jarib/cuketagger"
+  spec.homepage      = "https://github.com/enkessler/cuketagger"
   spec.license       = "MIT"
+  spec.metadata      = {
+    'bug_tracker_uri'   => 'https://github.com/enkessler/cuketagger/issues',
+    'changelog_uri'     => 'https://github.com/enkessler/cuketagger/blob/master/CHANGELOG.md',
+    'documentation_uri' => 'https://www.rubydoc.info/gems/cuketagger',
+    'homepage_uri'      => 'https://github.com/enkessler/cuketagger',
+    'source_code_uri'   => 'https://github.com/enkessler/cuketagger'
+  }
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files = Dir.chdir(File.expand_path('', __dir__)) do
     source_controlled_files = `git ls-files -z`.split("\x0")
-    source_controlled_files.keep_if { |file| file =~ %r{^(?:lib|exe)} }
+    source_controlled_files.keep_if { |file| file =~ /^(?:lib|exe)/ }
     source_controlled_files + ['README.md', 'LICENSE.txt', 'CHANGELOG.md', 'cuketagger.gemspec']
   end
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 2.0', '< 4.0'

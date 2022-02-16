@@ -2,3 +2,15 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 2.0
+
+
+# These help with readability
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+
+Security/Eval:
+  Exclude:
+    - 'testing/**/*'  # Test code is a safe enough place to use 'eval'
