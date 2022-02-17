@@ -59,7 +59,12 @@ RSpec.describe 'the gem' do
   end
 
   it 'has a description' do
-    skip('TODO: write a description')
+    text = <<-TEXT
+        Allows for tagging various elements of a Cucumber test suite
+    TEXT
+           .strip.squeeze(' ').delete("\n")
+
+    expect(@gemspec.description).to eq(text)
   end
 
   describe 'license' do
