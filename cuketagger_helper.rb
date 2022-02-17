@@ -18,6 +18,14 @@ module CukeTagger
       [major, minor, patch]
     end
 
+    def run_cuketagger(args)
+      %x{#{cuketagger} #{args} 2>&1}
+    end
+
+    def cuketagger
+      "ruby -W0 #{__dir__}/exe/cuketagger"
+    end
+
     def run_command(parts)
       parts.unshift('cmd.exe', '/c') if ChildProcess.windows?
       process = ChildProcess.build(*parts)

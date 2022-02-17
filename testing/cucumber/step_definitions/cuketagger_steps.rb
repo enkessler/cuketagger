@@ -8,7 +8,7 @@ end
 When /^I run cuketagger with "([^\"]*)"$/ do |args|
   args.gsub!('<path_to>', @root_test_directory)
 
-  @output = CukeTaggerHelper.run_cuketagger args
+  @output = run_cuketagger args
 end
 
 Then /^I should see:$/ do |string|

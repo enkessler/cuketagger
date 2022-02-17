@@ -26,7 +26,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can add a tag to a file' do
       args = "add:bar #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -45,7 +45,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can add a tag to a part of a file' do
       args = "add:bar #{file_path}:4"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['',
                             'Feature:',
@@ -64,7 +64,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can intermix full and partial file taggings' do
       args = "add:bar #{file_path} #{file_path}:7"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -114,7 +114,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "add:foo #{directory}/foo.feature #{directory}/bar.feature"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to include(['@foo',
                                  'Feature: Foo',
@@ -146,7 +146,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly adds a tag to a feature' do
       args = "add:bar #{file_path}:2"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -165,7 +165,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly adds a tag to a scenario' do
       args = "add:bar #{file_path}:4"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['',
                             'Feature:',
@@ -184,7 +184,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly adds a tag to an outline' do
       args = "add:bar #{file_path}:7"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['',
                             'Feature:',
@@ -203,7 +203,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly adds a tag to an example' do
       args = "add:bar #{file_path}:10"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['',
                             'Feature:',
@@ -222,7 +222,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly tags multiple parts of a file' do
       args = "add:bar #{file_path}:2 #{file_path}:7"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -259,7 +259,7 @@ RSpec.describe 'Tagger, Integration' do
 
         args = "add:bar #{file_path}:2 #{file_path}:4 #{file_path}:7 #{file_path}:10"
 
-        output = CukeTaggerHelper.run_cuketagger(args)
+        output = run_cuketagger(args)
 
         expect(output).to eq(['    @bar',
                               '    Feature:',
@@ -293,7 +293,7 @@ RSpec.describe 'Tagger, Integration' do
 
         args = "add:bar #{file_path}:2 #{file_path}:4 #{file_path}:7 #{file_path}:10"
 
-        output = CukeTaggerHelper.run_cuketagger(args)
+        output = run_cuketagger(args)
 
         expect(output).to eq(['@existing_tag @bar',
                               '    Feature:',
@@ -329,7 +329,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "add:foo #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -348,7 +348,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'ignores duplicate tag addition arguments' do
       args = "add:bar add:bar add:bar #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -385,7 +385,7 @@ RSpec.describe 'Tagger, Integration' do
 
         args = "add:foo #{file_path}:4"
 
-        output = CukeTaggerHelper.run_cuketagger(args)
+        output = run_cuketagger(args)
 
         expect(output).to eq(['',
                               'Feature:',
@@ -420,7 +420,7 @@ RSpec.describe 'Tagger, Integration' do
 
         args = "add:foo #{file_path}:2 #{file_path}:4 #{file_path}:7 #{file_path}:10"
 
-        output = CukeTaggerHelper.run_cuketagger(args)
+        output = run_cuketagger(args)
 
         expect(output).to eq(['# A comment',
                               '@foo',
@@ -457,7 +457,7 @@ RSpec.describe 'Tagger, Integration' do
 
         args = "add:foo #{file_path}"
 
-        output = CukeTaggerHelper.run_cuketagger(args)
+        output = run_cuketagger(args)
 
         expect(output).to eq(['@foo',
                               'Feature:',
@@ -500,7 +500,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can remove a tag from a file' do
       args = "remove:bar #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -522,7 +522,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can remove a tag from a part of a file' do
       args = "remove:bar #{file_path}:5"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bar',
                             'Feature:',
@@ -566,7 +566,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "remove:foo remove:baz #{file_path}:9"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bar',
                             'Feature:',
@@ -591,7 +591,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can handle removing a tag from an element that does not have it' do
       args = "remove:not_a_real_tag #{file_path}:5"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bar',
                             'Feature:',
@@ -613,7 +613,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can intermix full and partial file tag removals' do
       args = "remove:bar #{file_path} #{file_path}:9"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -671,7 +671,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "remove:bar #{directory}/foo.feature #{directory}/bar.feature"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to include(['@foo',
                                  'Feature: Foo',
@@ -709,7 +709,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly removes a tag from a feature' do
       args = "remove:bar #{file_path}:2"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -731,7 +731,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly removes a tag from a scenario' do
       args = "remove:bar #{file_path}:5"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bar',
                             'Feature:',
@@ -753,7 +753,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly removes a tag from an outline' do
       args = "remove:bar #{file_path}:9"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bar',
                             'Feature:',
@@ -775,7 +775,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly removes a tag from an example' do
       args = "remove:bar #{file_path}:13"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bar',
                             'Feature:',
@@ -797,7 +797,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly removes tags from multiple parts of a file' do
       args = "remove:bar #{file_path}:2 #{file_path}:9"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -836,7 +836,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "remove:bar #{file_path}:2 #{file_path}:5 #{file_path}:9 #{file_path}:12"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @baz',
                             'Feature:',
@@ -875,7 +875,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "remove:bar remove:bar remove:bar #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bar @bar',
                             'Feature:',
@@ -900,7 +900,7 @@ RSpec.describe 'Tagger, Integration' do
       it 'will remove an existing line if it is empty after tag removal' do
         args = "remove:foo remove:bar #{file_path}:5"
 
-        output = CukeTaggerHelper.run_cuketagger(args)
+        output = run_cuketagger(args)
 
         expect(output).to eq(['@foo @bar',
                               'Feature:',
@@ -921,7 +921,7 @@ RSpec.describe 'Tagger, Integration' do
       it 'correctly removes empty lines from multiple parts of a file' do
         args = "remove:foo remove:bar #{file_path}:5 #{file_path}:13"
 
-        output = CukeTaggerHelper.run_cuketagger(args)
+        output = run_cuketagger(args)
 
         expect(output).to eq(['@foo @bar',
                               'Feature:',
@@ -941,7 +941,7 @@ RSpec.describe 'Tagger, Integration' do
       it 'correctly removes an empty line from the beginning of a file' do
         args = "remove:foo remove:bar #{file_path}"
 
-        output = CukeTaggerHelper.run_cuketagger(args)
+        output = run_cuketagger(args)
 
         expect(output).to eq(['Feature:',
                               '',
@@ -986,7 +986,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can replace a tag on a file' do
       args = "replace:foo:bar #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -1008,7 +1008,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can replace a tag on a part of a file' do
       args = "replace:foo:bar #{file_path}:5"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -1030,7 +1030,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'can intermix full and partial file replacements' do
       args = "replace:foo:bar #{file_path} #{file_path}:5"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -1071,7 +1071,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "replace:foo:baz replace:baz:foo #{file_path}:8"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['Feature:',
                             '',
@@ -1130,7 +1130,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "replace:foo:bar #{directory}/foo.feature #{directory}/bar.feature:5"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to include(['@bar',
                                  'Feature: Foo',
@@ -1168,7 +1168,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly replaces a tag on a feature' do
       args = "replace:foo:bar #{file_path}:2"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -1190,7 +1190,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly replaces a tag on a scenario' do
       args = "replace:foo:bar #{file_path}:5"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -1213,7 +1213,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly replaces a tag on an outline' do
       args = "replace:foo:bar #{file_path}:9"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -1236,7 +1236,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly replaces a tag on an example' do
       args = "replace:foo:bar #{file_path}:13"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo',
                             'Feature:',
@@ -1258,7 +1258,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'correctly replaces tags in multiple parts of a file' do
       args = "replace:foo:bar #{file_path}:2 #{file_path}:13"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar',
                             'Feature:',
@@ -1281,7 +1281,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'emits a notice when replacing a tag from an element that does not have it' do
       args = "replace:not_a_real_tag:foo #{file_path}:5"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to include("expected \"@not_a_real_tag\" at #{File.basename(file_path)}:5, skipping")
       expect(output).to include(['@foo',
@@ -1321,7 +1321,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "replace:foo:new_tag #{file_path}:2 #{file_path}:5 #{file_path}:9"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@bar    @new_tag   @baz',
                             'Feature:',
@@ -1357,7 +1357,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "replace:bar:foo replace:bar:foo replace:bar:foo #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bar @bar',
                             'Feature:',
@@ -1396,7 +1396,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "add:new_tag remove:bar replace:baz:bazzz #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @bazzz @new_tag',
                             'Feature:',
@@ -1430,7 +1430,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "remove:bar replace:bar:new_tag #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @baz',
                             'Feature:',
@@ -1447,7 +1447,7 @@ RSpec.describe 'Tagger, Integration' do
 
       args = "replace:bar:new_tag remove:bar #{file_path}"
 
-      output = CukeTaggerHelper.run_cuketagger(args)
+      output = run_cuketagger(args)
 
       expect(output).to eq(['@foo @new_tag @baz',
                             'Feature:',
@@ -1471,7 +1471,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'does not rewrite a file by default' do
       args = "add:bar #{file_path}"
 
-      CukeTaggerHelper.run_cuketagger(args)
+      run_cuketagger(args)
 
       expect(File.read(file_path)).to eq(['',
                                           'Feature:',
@@ -1490,7 +1490,7 @@ RSpec.describe 'Tagger, Integration' do
     it 'rewrites a file when forced' do
       args = "add:bar #{file_path} -f"
 
-      CukeTaggerHelper.run_cuketagger(args)
+      run_cuketagger(args)
 
       expect(File.read(file_path)).to eq(['@bar',
                                           'Feature:',
@@ -1530,10 +1530,10 @@ RSpec.describe 'Tagger, Integration' do
       file_path = create_feature_file(text: source_text)
 
       args = "replace:foo:new_tag #{file_path}:2 #{file_path}:5 #{file_path}:9"
-      separate_output = CukeTaggerHelper.run_cuketagger(args)
+      separate_output = run_cuketagger(args)
 
       args = "replace:foo:new_tag #{file_path}:2:5:9"
-      combined_output = CukeTaggerHelper.run_cuketagger(args)
+      combined_output = run_cuketagger(args)
 
       expect(separate_output).to eq(combined_output)
     end

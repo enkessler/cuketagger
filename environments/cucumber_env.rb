@@ -6,6 +6,7 @@ require_relative 'common_env'
 require_relative '../testing/cucumber/step_definitions/cuketagger_steps'
 
 World(CukeTagger::FileHelper)
+World(CukeTagger::CukeTaggerHelper)
 
 
 Before do

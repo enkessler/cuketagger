@@ -23,4 +23,5 @@ RSpec.configure do |config|
   end
 
   config.include CukeTagger::FileHelper
+  config.include CukeTagger::CukeTaggerHelper
 end
