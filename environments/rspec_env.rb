@@ -18,11 +18,6 @@ RSpec.configure do |config|
   # For running only specific tests with the 'focus' tag
   config.filter_run_when_matching focus: true
 
-  config.before(:all) do
-    logfile = 'ct_logfile.txt'
-    File.delete(logfile) if File.exists?(logfile)
-  end
-
   config.after(:suite) do
     CukeTagger::FileHelper.delete_created_directories
   end
