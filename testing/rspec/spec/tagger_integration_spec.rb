@@ -1,25 +1,25 @@
 require_relative '../../../environments/rspec_env'
 
-
 RSpec.describe 'Tagger, Integration' do
 
   clazz = CukeTagger::Tagger
 
   let(:tagger) { clazz.new }
-  let(:source_text) { ['',
-                       'Feature:',
-                       '',
-                       'Scenario:',
-                       '  * a step',
-                       '',
-                       'Scenario Outline:',
-                       '  * a step',
-                       '',
-                       'Examples:',
-                       '  | param |',
-                       '  | value |'].join("\n") }
+  let(:source_text) do
+    ['',
+     'Feature:',
+     '',
+     'Scenario:',
+     '  * a step',
+     '',
+     'Scenario Outline:',
+     '  * a step',
+     '',
+     'Examples:',
+     '  | param |',
+     '  | value |'].join("\n")
+  end
   let(:file_path) { create_feature_file(text: source_text) }
-
 
   describe 'adding tags' do
 
@@ -109,8 +109,8 @@ RSpec.describe 'Tagger, Integration' do
                        '  | value |'].join("\n")
 
       directory = create_directory
-      create_feature_file(directory: directory, name: 'foo' , text: source_text_1)
-      create_feature_file(directory: directory, name: 'bar' , text: source_text_2)
+      create_feature_file(directory: directory, name: 'foo', text: source_text_1)
+      create_feature_file(directory: directory, name: 'bar', text: source_text_2)
 
       args = "add:foo #{directory}/foo.feature #{directory}/bar.feature"
 
@@ -238,7 +238,6 @@ RSpec.describe 'Tagger, Integration' do
                             '  | value |'].join("\n"))
     end
 
-
     describe 'tag indentation' do
 
       it 'correctly adds new tags to the end of an empty tag line' do
@@ -364,7 +363,6 @@ RSpec.describe 'Tagger, Integration' do
                             '  | value |'].join("\n"))
     end
 
-
     describe 'line adjustments' do
 
       it 'will add a new line above an element if no tag line or blank line exists' do
@@ -477,25 +475,25 @@ RSpec.describe 'Tagger, Integration' do
 
   end
 
-
   describe 'removing tags' do
 
-    let(:source_text) { ['@foo @bar',
-                         'Feature:',
-                         '',
-                         '@foo @bar',
-                         'Scenario:',
-                         '  * a step',
-                         '',
-                         '@foo @bar',
-                         'Scenario Outline:',
-                         '  * a step',
-                         '',
-                         '@foo @bar',
-                         'Examples:',
-                         '  | param |',
-                         '  | value |'].join("\n") }
-
+    let(:source_text) do
+      ['@foo @bar',
+       'Feature:',
+       '',
+       '@foo @bar',
+       'Scenario:',
+       '  * a step',
+       '',
+       '@foo @bar',
+       'Scenario Outline:',
+       '  * a step',
+       '',
+       '@foo @bar',
+       'Examples:',
+       '  | param |',
+       '  | value |'].join("\n")
+    end
 
     it 'can remove a tag from a file' do
       args = "remove:bar #{file_path}"
@@ -666,8 +664,8 @@ RSpec.describe 'Tagger, Integration' do
                        '  | value |'].join("\n")
 
       directory = create_directory
-      create_feature_file(directory: directory, name: 'foo' , text: source_text_1)
-      create_feature_file(directory: directory, name: 'bar' , text: source_text_2)
+      create_feature_file(directory: directory, name: 'foo', text: source_text_1)
+      create_feature_file(directory: directory, name: 'bar', text: source_text_2)
 
       args = "remove:bar #{directory}/foo.feature #{directory}/bar.feature"
 
@@ -894,7 +892,6 @@ RSpec.describe 'Tagger, Integration' do
                             '  | value |'].join("\n"))
     end
 
-
     describe 'line adjustments' do
 
       it 'will remove an existing line if it is empty after tag removal' do
@@ -963,25 +960,25 @@ RSpec.describe 'Tagger, Integration' do
 
   end
 
-
   describe 'replacing tags' do
 
-    let(:source_text) { ['@foo',
-                         'Feature:',
-                         '',
-                         '@foo',
-                         'Scenario:',
-                         '  * a step',
-                         '',
-                         '@foo',
-                         'Scenario Outline:',
-                         '  * a step',
-                         '',
-                         '@foo',
-                         'Examples:',
-                         '  | param |',
-                         '  | value |'].join("\n") }
-
+    let(:source_text) do
+      ['@foo',
+       'Feature:',
+       '',
+       '@foo',
+       'Scenario:',
+       '  * a step',
+       '',
+       '@foo',
+       'Scenario Outline:',
+       '  * a step',
+       '',
+       '@foo',
+       'Examples:',
+       '  | param |',
+       '  | value |'].join("\n")
+    end
 
     it 'can replace a tag on a file' do
       args = "replace:foo:bar #{file_path}"
@@ -1125,8 +1122,8 @@ RSpec.describe 'Tagger, Integration' do
                        '  | value |'].join("\n")
 
       directory = create_directory
-      create_feature_file(directory: directory, name: 'foo' , text: source_text_1)
-      create_feature_file(directory: directory, name: 'bar' , text: source_text_2)
+      create_feature_file(directory: directory, name: 'foo', text: source_text_1)
+      create_feature_file(directory: directory, name: 'bar', text: source_text_2)
 
       args = "replace:foo:bar #{directory}/foo.feature #{directory}/bar.feature:5"
 
@@ -1277,7 +1274,7 @@ RSpec.describe 'Tagger, Integration' do
                             '  | value |'].join("\n"))
     end
 
-    # todo - emit notice when removing a tag that doesn't exist as well
+    # TODO: emit notice when removing a tag that doesn't exist as well
     it 'emits a notice when replacing a tag from an element that does not have it' do
       args = "replace:not_a_real_tag:foo #{file_path}:5"
 
@@ -1375,7 +1372,6 @@ RSpec.describe 'Tagger, Integration' do
 
   end
 
-
   describe 'intermixing actions' do
 
     it 'can intermix tag addition, removal, and replacement' do
@@ -1465,7 +1461,6 @@ RSpec.describe 'Tagger, Integration' do
 
   end
 
-
   describe 'rewriting files' do
 
     it 'does not rewrite a file by default' do
@@ -1508,7 +1503,6 @@ RSpec.describe 'Tagger, Integration' do
 
   end
 
-
   describe 'arguments' do
 
     it 'can understand multiple changes in the same file' do
@@ -1529,10 +1523,10 @@ RSpec.describe 'Tagger, Integration' do
 
       file_path = create_feature_file(text: source_text)
 
-      args = "replace:foo:new_tag #{file_path}:2 #{file_path}:5 #{file_path}:9"
+      args            = "replace:foo:new_tag #{file_path}:2 #{file_path}:5 #{file_path}:9"
       separate_output = run_cuketagger(args)
 
-      args = "replace:foo:new_tag #{file_path}:2:5:9"
+      args            = "replace:foo:new_tag #{file_path}:2:5:9"
       combined_output = run_cuketagger(args)
 
       expect(separate_output).to eq(combined_output)

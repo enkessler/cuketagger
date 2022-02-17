@@ -13,6 +13,6 @@ Before do
   @root_test_directory = create_directory
 end
 
-at_exit {
+at_exit do
   CukeTagger::FileHelper.delete_created_directories
-}
+end

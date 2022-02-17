@@ -1,19 +1,18 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cuketagger/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cuketagger"
+  spec.name          = 'cuketagger'
   spec.version       = CukeTagger::VERSION
-  spec.authors       = ["Jari Bakken", "Eric Kessler"]
-  spec.email         = ["morrow748@gmail.com"]
+  spec.authors       = ['Jari Bakken', 'Eric Kessler']
+  spec.email         = ['morrow748@gmail.com']
 
-  # todo - Update summary and description with something better
-  spec.summary       = "Batch tagging of cucumber features and scenarios"
+  # TODO: Update summary and description with something better
+  spec.summary       = 'Batch tagging of cucumber features and scenarios'
   spec.description   = 'Allows for tagging various elements of a Cucumber test suite'
-  spec.homepage      = "https://github.com/enkessler/cuketagger"
-  spec.license       = "MIT"
+  spec.homepage      = 'https://github.com/enkessler/cuketagger'
+  spec.license       = 'MIT'
   spec.metadata      = {
     'bug_tracker_uri'   => 'https://github.com/enkessler/cuketagger/issues',
     'changelog_uri'     => 'https://github.com/enkessler/cuketagger/blob/master/CHANGELOG.md',

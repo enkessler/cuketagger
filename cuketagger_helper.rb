@@ -19,7 +19,7 @@ module CukeTagger
     end
 
     def run_cuketagger(args)
-      %x{#{cuketagger} #{args} 2>&1}
+      `#{cuketagger} #{args} 2>&1`
     end
 
     def cuketagger
